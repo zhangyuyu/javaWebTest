@@ -1,0 +1,55 @@
+form{
+    float: left;
+    margin-left: 38%;
+}
+table{
+    float: left;
+    text-align: center;
+    background-color: rgba(220,220,220,0.4);
+}
+td{
+    width:60px;
+    height: 30px;;
+}
+.tr-title{
+    font-weight: bold;
+    text-align: center;
+}
+.td-id{
+    text-align: left;
+}
+div{
+    float: left;
+    margin-left:80px;
+    margin-top: 45px;
+
+}
+a{
+    text-decoration: none;
+}
+input.options{
+    font-weight: bold;
+    font-size: large;
+    height: 30px;
+    width: 80px;
+    margin-top: 15px;
+    border-radius: 5px;
+    background: rgba(100,58,100,0.4);
+}
+#update-text{
+    padding: 30px;;
+    border: 1px dotted;
+    border-radius: 5px;
+    float: left;
+    font-size: large;
+    font-family: cursive;
+}
+.text-right{
+    float: right;
+    width: 180px;
+    margin-bottom: auto;
+    background: rgba(250,200,200,0.5);
+}
+#update-ok{
+    float: right;
+}
