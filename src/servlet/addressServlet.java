@@ -11,16 +11,13 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-/**
- * Created by zhangyu on 2015/7/23.
- */
 @WebServlet(name = "addressServlet",urlPatterns = "/addressServlet")
 public class addressServlet extends HttpServlet {
     private AddressDao addressDao = new AddressDao();
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String path = "list.jsp";
-
         String method = request.getParameter("method");
+        boolean redirect = false;
 
         if (method.equals("add")){
             String name = request.getParameter("name");
@@ -30,9 +27,11 @@ public class addressServlet extends HttpServlet {
             address.setZip(zip);
             addressDao.add(address);
             path = "addressServlet?method=list";
+            redirect = true;
         } else if(method.equals("list")) {
             List<Address> list = addressDao.findAll();
             request.setAttribute("list",list);
+//            redirect = true;
         } else if (method.equals("delete")){
             String[] checkboxID = request.getParameterValues("cb-id");
             if( checkboxID != null){
@@ -41,13 +40,14 @@ public class addressServlet extends HttpServlet {
                 }
             }
             path = "addressServlet?method=list";
-        }else if (method.equals("update")){
+            redirect = true;
+        }else if (method.equals("update")) {
             Address address = new Address();
             String name = request.getParameter("name");
             String zip = request.getParameter("zip");
             String[] checkboxID = request.getParameterValues("cb-id");
-            if( checkboxID != null){
-                for( String a: checkboxID){
+            if (checkboxID != null) {
+                for (String a : checkboxID) {
                     address.setId(Integer.parseInt(a));
                     address.setName(name);
                     address.setZip(zip);
@@ -55,9 +55,15 @@ public class addressServlet extends HttpServlet {
                 }
             }
             path = "addressServlet?method=list";
+            redirect = true;
         }
 
-        request.getRequestDispatcher(path).forward(request,response);
+        if(redirect){
+            response.sendRedirect(path);
+        }
+        else{
+            request.getRequestDispatcher(path).forward(request,response);
+        }
     }
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
