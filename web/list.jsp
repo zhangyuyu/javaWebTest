@@ -1,13 +1,5 @@
-<%@ page import="java.util.List" %>
-<%@ page import="entity.Address" %>
-<%--
-  Created by IntelliJ IDEA.
-  User: zhangyu
-  Date: 2015/7/23
-  Time: 13:49
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>>
 <html>
 <head>
   <title>list</title>
@@ -61,22 +53,19 @@
         <td>NAME</td>
         <td>ZIP</td>
       </tr>
-    <%
-      List<Address> list = (List<Address>) request.getAttribute("list");
-      for(Address a:list){
-    %>
-    <tr>
-      <%-- http://localhost:8080/servelt?method=delete&cb-id=1 --%>
-      <td class="td-id">
-        <input type="checkbox" name="cb-id" value="<%=a.getId() %>"/>
-        <%=a.getId() %>
-      </td>
-      <td><%=a.getName() %></td>
-      <td><%=a.getZip() %></td></tr>
-    <% } %>
+
+      <c:forEach var="a" items="${list}">
+        <tr>
+          <td class="td-id">
+            <input type="checkbox" name="cb-id" value="${a.id}"/>
+              ${a.id}
+          </td>
+          <td>${a.name}</td>
+          <td>${a.zip}</td></tr>
+      </c:forEach>
+
     </table>
     <div>
-      <%--<a href="add.html"><input type="button" class="options" value="添加"/> </a> <br/>--%>
       <input type="button" value="添加" class="options" id="add"/> <br/>
       <input type="button" value="删除" class="options" id="delete"/> <br/>
       <input type="button" value="更新" class="options" id="update"/> <br/>
